@@ -31,7 +31,7 @@ const drawBoard = () => {
 </script>
 
 <template>
-  <div>
+  <div class="inline-block m-4">
     <canvas ref="canvasRef" width="200" height="400"> </canvas>
   </div>
 </template>
