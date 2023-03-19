@@ -1,16 +1,20 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
-import { Board, BlockColor } from "./teto/Board";
+import { Board, BlockColor } from "./Board";
+
+const props = defineProps<{
+  board: Board;
+}>();
+
+const canvasRef = ref<HTMLCanvasElement | null>(null);
 
 onMounted(() => {
   drawBoard();
 });
 
 const drawBoard = () => {
-  let ctx = (document.getElementById("board") as HTMLCanvasElement).getContext(
-    "2d"
-  )!;
-  var board: Board = Board.fromFumen("v115@ufAtHeBtEeQ4BeAtRpDeR4xhRpEeQ4xhRphlh0Aegl?xhRpAtglg0BeglxhCtglh0AehlwhglT4Aeh0xhhlAtRpAei?0whCtRpAeRpg0CtywAeRpwhRpT4Aeg0glwhJeAgH");
+  let ctx = (canvasRef.value as HTMLCanvasElement).getContext("2d")!;
+  let board = props.board;
 
   // clear canvas
   ctx.strokeStyle = "#000000";
@@ -27,5 +31,7 @@ const drawBoard = () => {
 </script>
 
 <template>
-  <canvas id="board" width="200" height="400"> </canvas>
+  <div>
+    <canvas ref="canvasRef" width="200" height="400"> </canvas>
+  </div>
 </template>

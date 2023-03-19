@@ -1,22 +1,7 @@
 <script setup lang="ts">
-import Board from "./Board.vue";
+import EditorComponent from "./teto/ReplayComponent.vue";
 </script>
 
 <template>
-  <div>
-    <Board />
-  </div>
+  <EditorComponent />
 </template>
-
-<style scoped>
-div {
-  background-color: beige;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
-
-  text-align: center;
-}
-</style>
