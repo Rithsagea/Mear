@@ -10,7 +10,7 @@ const drawBoard = () => {
   let ctx = (document.getElementById("board") as HTMLCanvasElement).getContext(
     "2d"
   )!;
-  var board: Board = new Board();
+  var board: Board = Board.fromFumen("v115@ufAtHeBtEeQ4BeAtRpDeR4xhRpEeQ4xhRphlh0Aegl?xhRpAtglg0BeglxhCtglh0AehlwhglT4Aeh0xhhlAtRpAei?0whCtRpAeRpg0CtywAeRpwhRpT4Aeg0glwhJeAgH");
 
   // clear canvas
   ctx.strokeStyle = "#000000";

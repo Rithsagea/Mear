@@ -1,3 +1,6 @@
+import { Page, decoder } from "tetris-fumen";
+import { parsePiece } from "tetris-fumen/lib/defines";
+
 export const Block = {
   EMPTY: 0,
   CYAN: 1, // I
@@ -48,11 +51,19 @@ export class Board {
     for (let i = 0; i < height; i++) {
       this.data[i] = new Array(width);
     }
+  }
 
-    for (let i = 0; i < height; i++) {
-      for (let j = 0; j < width; j++) {
-        this.data[i][j] = Math.floor(Math.random() * 9);
+  static fromFumen(fumen: Page | string): Board {
+    let field = (typeof fumen === "string" ? decoder.decode(fumen)[0] : fumen)
+      .field;
+    let board = new Board(23, 10);
+
+    for (let i = 0; i < 23; i++) {
+      for (let j = 0; j < 10; j++) {
+        board.data[i][j] = parsePiece(field.at(j, i));
       }
     }
+
+    return board;
   }
 }
