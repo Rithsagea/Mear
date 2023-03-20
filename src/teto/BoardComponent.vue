@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
-import { Board, BlockColor } from "./Board";
+import { Board, BlockColor, Block } from "./Board";
 
 const props = defineProps<{
   board: Board;
@@ -20,10 +20,19 @@ const drawBoard = () => {
   ctx.strokeStyle = "#000000";
   ctx.fillRect(0, 0, 200, 400);
 
+  //draw grid
+  ctx.strokeStyle = "#313131";
   for (let i = 0; i < board.height; i++) {
     for (let j = 0; j < board.width; j++) {
+      ctx.strokeRect(j * 20, 380 - i * 20, 20, 20);
+    }
+  }
+
+  // draw tiles
+  for (let i = 0; i < board.height; i++) {
+    for (let j = 0; j < board.width; j++) {
+      if (board.data[i][j] == Block.EMPTY) continue;
       ctx.fillStyle = BlockColor.get(board.data[i][j]) ?? "#FFFFFF";
-      console.log(ctx.fillStyle);
       ctx.fillRect(j * 20, 380 - i * 20, 20, 20);
     }
   }
