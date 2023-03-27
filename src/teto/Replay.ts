@@ -15,9 +15,46 @@ class PlayerInfo {
   }
 }
 
+class EventData {}
+
+class HandlingOptions {}
+
+function parseEventData(raw: any): [EventData[], HandlingOptions] {
+  let framesCount = raw.frames;
+  let handlingOptions: HandlingOptions;
+  let events: EventData[] = [];
+
+  for (let event of raw.events) {
+    switch (event.type) {
+      case "full": // this goes into handlingoptions
+      case "keydown":
+      case "keyup":
+      case "ige":
+      case "end":
+
+      case "targets": // this probably doesn't matter
+      case "start": // this also probably doesn't matter
+        break;
+      default:
+        throw new ReplayLoadError(`unknown event type: ${event.type}`);
+    }
+  }
+
+  return [events, handlingOptions!];
+}
+
 class Round {
+  player1Frames: EventData[];
+  player2Frames: EventData[];
+
+  player1Handling: HandlingOptions;
+  player2Handling: HandlingOptions;
+
   constructor(raw: any) {
     console.log(raw);
+
+    [this.player1Frames, this.player1Handling] = parseEventData(raw.replays[0]);
+    [this.player2Frames, this.player2Handling] = parseEventData(raw.replays[1]);
   }
 }
 
@@ -39,6 +76,6 @@ export class Replay {
       else throw new ReplayLoadError("invalid player order in endcontext");
     });
 
-    this.rounds = raw.data.map((round: any) => new Round(round));
+    this.rounds = raw.data.slice(0, 1).map((round: any) => new Round(round));
   }
 }

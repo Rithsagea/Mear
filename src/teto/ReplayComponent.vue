@@ -13,8 +13,6 @@ var board2: Board = Board.fromFumen(
 );
 
 let replay = new Replay(replayData);
-
-console.log(replayData);
 </script>
 
 <template>
