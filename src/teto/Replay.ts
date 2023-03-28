@@ -17,7 +17,17 @@ class PlayerInfo {
 
 class EventData {}
 
-class HandlingOptions {}
+class HandlingOptions {
+  gameOptions: any;
+  controlOptions: any;
+
+  constructor(raw: any) {
+    this.gameOptions = raw.options;
+    this.controlOptions = raw.game.handling;
+
+    console.log(this);
+  }
+}
 
 function parseEventData(raw: any): [EventData[], HandlingOptions] {
   let framesCount = raw.frames;
@@ -27,6 +37,7 @@ function parseEventData(raw: any): [EventData[], HandlingOptions] {
   for (let event of raw.events) {
     switch (event.type) {
       case "full": // this goes into handlingoptions
+        handlingOptions = new HandlingOptions(event.data);
       case "keydown":
       case "keyup":
       case "ige":
